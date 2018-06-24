@@ -1,0 +1,24 @@
+{% extends 'base.html' %}
+
+{% load static %}
+
+{% block javascript %}
+
+{% endblock %}
+
+{% block breadcrumb %}
+  <li class="breadcrumb-item"><a href="{% url 'home' %}">Books</a></li>
+
+  <li class="breadcrumb-item active">Create author</li>
+{% endblock %}
+
+{% block content %}
+
+<h2>Добавить автора</h2>
+<form method="post" novalidate>
+    {% csrf_token %}
+    {% include 'includes/bs_form.html' with form=form %}
+    <button type="submit">Save</button>
+    <a href="{% url 'book_list' %}">Cancel</a>
+</form>
+{% endblock %}

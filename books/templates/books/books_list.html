@@ -1,0 +1,33 @@
+{% extends 'base.html' %}
+
+{% load static %}
+
+{% block javascript %}
+
+{% endblock %}
+
+{% block breadcrumb %}
+<li class="breadcrumb-item active">Books</li>
+{% endblock %}
+
+{% block content %}
+<h1 class="page-header">Books</h1>
+
+<a href="{% url 'book_create' %}">New book</a>
+
+<table class="table" id="book-table">
+    <thead>
+    <tr>
+        <th>#</th>
+        <th>Название</th>
+        <th>Авторы</th>
+        <th>Издательство</th>
+        <th></th>
+    </tr>
+    </thead>
+    <tbody>
+    {% include 'books/includes/partial_book_list.html' %}
+    </tbody>
+</table>
+
+{% endblock %}

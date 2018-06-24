@@ -1,0 +1,22 @@
+{% for book in books_list %}
+<tr>
+    <td>{{ book.id }}</td>
+    <td><a href="{% url 'book_detail' book.pk %}">{{ book.title }}</a></td>
+    <td>
+        <table>
+            <tbody>
+                {% for author in book.authors.all %}
+                <tr>
+                    <td>{{ author.first_name}} {{author.last_name}}</td>
+                </tr>
+                {% endfor %}
+            </tbody>
+        </table>
+    </td>
+    <td>{{ book.publisher}}</td>
+</tr>
+{% empty %}
+<tr>
+    <td colspan="8" class="text-center bg-warning">No book</td>
+</tr>
+{% endfor %}

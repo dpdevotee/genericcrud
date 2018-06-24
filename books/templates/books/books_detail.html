@@ -1,0 +1,38 @@
+{% extends 'base.html' %}
+
+{% load static %}
+
+{% block javascript %}
+
+{% endblock %}
+
+{% block breadcrumb %}
+<li class="breadcrumb-item"><a href="{% url 'home' %}">Books</a></li>
+<li class="breadcrumb-item active">{{ object.title }}</li>
+{% endblock %}
+
+{% block content %}
+
+<h2>{{object.title}}</h2>
+<table class="table">
+    <tbody>
+    <tr>
+        <td>Авторы</td>
+        <td>
+            <table>
+                {% for author in object.authors.all %}
+                <tr>
+                    <td>{{author}}</td>
+                </tr>
+                {% endfor %}
+            </table>
+        </td>
+    </tr>
+    <tr>
+        <td>Издательство</td>
+        <td>{{object.publisher.name}}</td>
+    </tr>
+    </tbody>
+</table>
+<a href="{% url 'book_update' object.pk %}">Редактировать</a>
+{% endblock %}

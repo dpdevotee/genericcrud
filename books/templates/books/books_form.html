@@ -1,0 +1,52 @@
+{% extends 'base.html' %}
+
+{% load static %}
+
+{% block javascript %}
+
+{% endblock %}
+
+{% block breadcrumb %}
+<li class="breadcrumb-item"><a href="{% url 'home' %}">Books</a></li>
+{% if form.instance.pk %}
+<li class="breadcrumb-item"><a href="{% url 'book_detail' form.instance.pk %}">{{form.instance.title}}</a></li>
+{% endif %}
+{% if form.instance.pk %}
+<li class="breadcrumb-item active">Edit book</li>
+{% else %}
+<li class="breadcrumb-item active">Create book</li>
+{% endif %}
+{% endblock %}
+
+{% block content %}
+
+<h2>Добавить книгу</h2>
+<form method="post"
+      data-url="{% url 'load_types' %}"
+      novalidate id="node_form">
+    {% csrf_token %}
+    {% include 'includes/bs_form.html' with form=form %}
+    <button type="submit">Сохранить</button>
+    <a href="{% url 'book_list' %}">Отменить</a>
+</form>
+
+<script src="https://code.jquery.com/jquery-3.3.1.min.js"></script>
+<script>
+    $("#id_category").change(function () {
+      var url = $("#node_form").attr("data-url");
+      var category = $(this).val();
+
+      $.ajax({                       // initialize an AJAX request
+        url: url,
+        data: {
+          'category': category
+        },
+        success: function (data) {   // `data` is the return of the `load_types` view function
+          $("#id_manually_set_type").html(data);  // replace the contents of the city input with the data that came from the server
+        }
+      });
+
+    });
+
+</script>
+{% endblock %}
